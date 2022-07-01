@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  ssh:
+    image: "linuxserver/openssh-server"
+    container_name: openssh-server
+    ports:
+      - "2222:2222"
+      - "8088:8080"
+    volumes:
+      - "./id_rsa.pub:/pubkey:ro"
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Moscow
+      PUBLIC_KEY_FILE: "/pubkey"
+      SUDO_ACCESS: "true"
+      PASSWORD_ACCESS: "true"
+      USER_PASSWORD: "password"
+    restart: "always"
