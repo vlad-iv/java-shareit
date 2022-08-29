@@ -1,7 +1,20 @@
 package ru.practicum.shareit.booking.dto;
 
+import java.time.LocalDateTime;
+
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
+import lombok.Getter;
+
 /**
  * TODO Sprint add-bookings.
  */
-public class BookingDto {
+@StartBeforeEnd
+@Getter
+public class BookingDto implements StartEnd {
+	@FutureOrPresent
+	private LocalDateTime start;
+	@Future
+	private LocalDateTime end;
+
 }

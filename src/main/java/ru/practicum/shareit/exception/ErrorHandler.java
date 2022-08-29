@@ -1,4 +1,4 @@
-package ru.practicum.shareit;
+package ru.practicum.shareit.exception;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
