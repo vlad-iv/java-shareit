@@ -1,8 +1,8 @@
 package ru.practicum.shareit.item;
 
-import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.booking.Booking;
+import ru.practicum.shareit.item.dto.ItemInfoDto;
 import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.user.User;
 
 /**
  * // TODO .
@@ -10,7 +10,9 @@ import ru.practicum.shareit.user.User;
  * @author Vladimir Ivanov (ivanov.vladimir.l@gmail.com)
  */
 public class ItemMapper {
-	public static Item toItem(ItemDto itemDto, User owner) {
-		return new Item(itemDto.getId(), ... , owner)
+	public static ItemInfoDto toItemInfoDto(Item item, Booking lastBooking, Booking nextBooking) {
+		return new ItemInfoDto(item.getId(), item.getName(),
+				item.getDescrioption(), item.getAvailable(),
+				new ItemInfoDto.BookingDto(lastBooking.getId(),.. ));
 	}
 }
