@@ -1,40 +1,58 @@
 package ru.practicum.shareit.user;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-/**
- * // TODO .
- *
- * @author Vladimir Ivanov (ivanov.vladimir.l@gmail.com)
- */
+import lombok.RequiredArgsConstructor;
+import ru.practicum.shareit.exception.NotFoundException;
+
 @Service
-@Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class UserService {
-	final UserRepository userRepository;
 
-	public UserService(UserRepository userRepository) {
-		this.userRepository = userRepository;
+	@Autowired
+	UserRepository userRepository;
+
+	public List<UserDto> getAll() {
+		return userRepository.findAll()
+				.stream()
+				.map(UserMapper::toUserDto)
+				.collect(Collectors.toList());
 	}
 
-	@Transactional
-	public UserDto createUser(UserDto dto) {
-		final User user = UserMapper.toUser(dto);
-		final User save = userRepository.save(user);// ОБЯЗАТЕЛЬНО
-//		dto.setId(save.getId());
-//		return dto;
+	public UserDto createUser(UserDto userDto) {
+		final User user = UserMapper.toUser(userDto);
+		final User save = userRepository.save(user);
 		return UserMapper.toUserDto(save);
 	}
-	@Transactional
-	public UserDto updateUser(UserDto dto) {
-		final User u = userRepository.findById(dto.getId())
-				.orElseThrow(() -> new RuntimeException("User not found " + dto.getId()));
-		final User user = UserMapper.toUser(dto);
-		if (user.getName() != null && !user.getName().isBlank()) {
-			u.setName(user.getName());
+
+	public UserDto updateUser(UserDto userDto) {
+		final User newUser = UserMapper.toUser(userDto);
+
+		final User user = userRepository.findById(newUser.getId())
+				.orElseThrow(() -> new NotFoundException("User with id=" + newUser.getId() + " not found"));
+
+		if (newUser.getName() == null) {
+			newUser.setName(user.getName());
 		}
-		//// TODO
-		userRepository.save(u);
-		return UserMapper.toUserDto(u);
+		if (newUser.getEmail() == null) {
+			newUser.setEmail(user.getEmail());
+		}
+		userRepository.save(newUser);
+		return UserMapper.toUserDto(newUser);
+	}
+
+	public UserDto getUser(long userId) {
+		final User user = userRepository.findById(userId)
+				.orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
+		return UserMapper.toUserDto(user);
+	}
+
+	public void deleteUser(long userId) {
+		userRepository.findById(userId)
+				.ifPresent(user -> userRepository.delete(user));
 	}
 }

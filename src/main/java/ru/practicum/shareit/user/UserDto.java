@@ -10,14 +10,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import ru.practicum.shareit.Create;
-import ru.practicum.shareit.Update;
+import ru.practicum.shareit.common.Create;
+import ru.practicum.shareit.common.Update;
 
-/**
- * // TODO .
- *
- * @author Vladimir Ivanov (ivanov.vladimir.l@gmail.com)
- */
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)

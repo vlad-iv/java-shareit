@@ -1,4 +1,4 @@
-package ru.practicum.shareit;
+package ru.practicum.shareit.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -23,4 +23,17 @@ public class ErrorHandler {
 		return new ErrorResponse(e.getMessage());
 	}
 
+	@ExceptionHandler
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public ErrorResponse handleNotFoundException(final NotFoundException e) {
+		log.info("404 {}", e.getMessage());
+		return new ErrorResponse(e.getMessage());
+	}
+
+	@ExceptionHandler
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public ErrorResponse handleThrowable(final Throwable e) {
+		log.info("500 {}", e.getMessage(), e);
+		return new ErrorResponse(e.getMessage());
+	}
 }
