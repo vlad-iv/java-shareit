@@ -2,18 +2,18 @@ package ru.practicum.shareit.item.dto;
 
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
-import ru.practicum.shareit.Create;
-import ru.practicum.shareit.booking.Booking;
-import ru.practicum.shareit.booking.dto.BookingDto;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * // TODO .
  *
  * @author Vladimir Ivanov (ivanov.vladimir.l@gmail.com)
  */
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ItemInfoDto {
 	private Long id;
 	private String name;
@@ -22,10 +22,13 @@ public class ItemInfoDto {
 	private BookingDto lastBooking;
 	private BookingDto nextBooking;
 
+	@Getter
+	@AllArgsConstructor
+	@NoArgsConstructor
 	public static class BookingDto {
 		Long id;
-//		LocalDateTime start;
-//		LocalDateTime end;
+		LocalDateTime start;
+		LocalDateTime end;
 		Long bookerId;
 	}
 }

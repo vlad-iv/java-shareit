@@ -1,16 +1,19 @@
 package ru.practicum.shareit.user;
 
-/**
- * // TODO .
- *
- * @author Vladimir Ivanov (ivanov.vladimir.l@gmail.com)
- */
-public class UserMapper {
-	public static User toUser(UserDto dto) {
-		return new User(dto.getId(), dto.getName(), dto.getEmail());
-	}
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class UserMapper {
 	public static UserDto toUserDto(User user) {
 		return new UserDto(user.getId(), user.getName(), user.getEmail());
+	}
+
+	public static User toUser(UserDto userDto) {
+		User user = new User();
+		user.setId(userDto.getId());
+		user.setName(userDto.getName());
+		user.setEmail(userDto.getEmail());
+		return user;
 	}
 }

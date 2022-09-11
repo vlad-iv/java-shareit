@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import ru.practicum.shareit.Create;
+import ru.practicum.shareit.common.Create;
 
 /**
  * TODO Sprint add-controllers.
