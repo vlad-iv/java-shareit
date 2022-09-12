@@ -9,7 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.practicum.shareit.user.User;
 
@@ -20,6 +22,8 @@ import ru.practicum.shareit.user.User;
 @Table(name = "items")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Item {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +32,7 @@ public class Item {
 
 	@Column(name = "name")
 	private String name;
-	private String descrioption;
+	private String description;
 	private Boolean available;
 
 	@ManyToOne

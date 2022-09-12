@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -16,8 +17,8 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 
-	public List<UserDto> getAll() {
-		return userRepository.findAll()
+	public List<UserDto> getAll(PageRequest pageRequest) {
+		return userRepository.findAll(pageRequest)
 				.stream()
 				.map(UserMapper::toUserDto)
 				.collect(Collectors.toList());

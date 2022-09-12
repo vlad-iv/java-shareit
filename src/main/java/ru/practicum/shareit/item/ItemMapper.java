@@ -12,7 +12,7 @@ import ru.practicum.shareit.item.model.Item;
 public class ItemMapper {
 	public static ItemInfoDto toItemInfoDto(Item item, Booking lastBooking, Booking nextBooking) {
 		return new ItemInfoDto(item.getId(), item.getName(),
-				item.getDescrioption(), item.getAvailable(),
+				item.getDescription(), item.getAvailable(),
 				lastBooking != null ? new ItemInfoDto.BookingDto(lastBooking.getId(),
 						lastBooking.getStart(),
 						lastBooking.getEnd(),
