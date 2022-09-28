@@ -1,9 +1,7 @@
 package ru.practicum.shareit.user;
 
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * // TODO .
@@ -11,14 +9,28 @@ import org.springframework.stereotype.Service;
  * @author Vladimir Ivanov (ivanov.vladimir.l@gmail.com)
  */
 @Service
+@Transactional(readOnly = true)
 public class UserService {
-	@Autowired
-	UserRepository userRepository;
-	public UserDto updateUser(UserDto dto) {
+	final UserRepository userRepository;
+
+	public UserService(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
+
+	@Transactional
+	public UserDto createUser(UserDto dto) {
 		final User user = UserMapper.toUser(dto);
+		final User save = userRepository.save(user);// ОБЯЗАТЕЛЬНО
+//		dto.setId(save.getId());
+//		return dto;
+		return UserMapper.toUserDto(save);
+	}
+	@Transactional
+	public UserDto updateUser(UserDto dto) {
 		final User u = userRepository.findById(dto.getId())
 				.orElseThrow(() -> new RuntimeException("User not found " + dto.getId()));
-		if (user.getName() != null) {
+		final User user = UserMapper.toUser(dto);
+		if (user.getName() != null && !user.getName().isBlank()) {
 			u.setName(user.getName());
 		}
 		//// TODO

@@ -13,6 +13,7 @@ public class ItemMapper {
 	public static ItemInfoDto toItemInfoDto(Item item, Booking lastBooking, Booking nextBooking) {
 		return new ItemInfoDto(item.getId(), item.getName(),
 				item.getDescrioption(), item.getAvailable(),
-				new ItemInfoDto.BookingDto(lastBooking.getId(),.. ));
+				new ItemInfoDto.BookingDto(lastBooking.getId(),.. ),
+		new ItemInfoDto.BookingDto(nextBooking.getId(),.. ))
 	}
 }
