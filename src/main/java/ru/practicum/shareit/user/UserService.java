@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import ru.practicum.shareit.exception.NotFoundException;
@@ -24,6 +25,7 @@ public class UserService {
 				.collect(Collectors.toList());
 	}
 
+	@Transactional
 	public UserDto createUser(UserDto userDto) {
 		final User user = UserMapper.toUser(userDto);
 		final User save = userRepository.save(user);

@@ -3,7 +3,6 @@ package ru.practicum.shareit.item;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,15 +42,26 @@ class ItemRepositoryTest {
 
 	@Test
 	void findByOwner() {
+		System.out.println("findByOwner()");
+		System.out.println(userRepository.findAll());
 		final Page<Item> byOwner = itemRepository.findByOwner_Id(user1.getId(), Pageable.unpaged());
 		assertNotNull(byOwner);
 		assertEquals(1, byOwner.getTotalElements());
 		// ...
 	}
 
-	@AfterEach
-	void afterEach() {
-		itemRepository.deleteAll();
-		userRepository.deleteAll();
+	@Test
+	void findByOwner1() {
+
+
+		System.out.println("findByOwner1()");
+		System.out.println(userRepository.findAll());
+		// ...
 	}
+
+//	@AfterEach
+//	void afterEach() {
+//		itemRepository.deleteAll();
+//		userRepository.deleteAll();
+//	}
 }

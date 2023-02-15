@@ -1,7 +1,5 @@
 package ru.practicum.shareit.booking;
 
-import java.util.Optional;
-
 /**
  * // TODO .
  *
@@ -24,7 +22,7 @@ public enum BookingState {
 	static BookingState from(String state) {
 		for (BookingState value : BookingState.values()) {
 			if (value.name().equals(state)) {
-				return Optional.of(value);
+				return value;
 			}
 
 		}
