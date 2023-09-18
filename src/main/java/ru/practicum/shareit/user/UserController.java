@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ru.practicum.shareit.common.Create;
+import ru.practicum.shareit.common.MyPageRequest;
 import ru.practicum.shareit.common.Update;
 
 @RestController
@@ -36,6 +37,7 @@ public class UserController {
 		log.info("Get all users from={}, size={}", from, size);
 		int page = from / size;
 		final PageRequest pageRequest = PageRequest.of(page, size);
+		final PageRequest pageRequest1 = new MyPageRequest(from, size, null);
 		return userService.getAll(pageRequest);
 	}
 

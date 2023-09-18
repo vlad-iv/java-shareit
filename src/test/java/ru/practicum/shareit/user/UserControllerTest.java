@@ -8,7 +8,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Collections;
+import java.util.List;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,11 +19,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import ru.practicum.shareit.common.MyPageRequest;
+
 /**
- * // TODO .
+ * Test UserController.
  *
  * @author Vladimir Ivanov (ivanov.vladimir.l@gmail.com)
  */
+@DisplayName("User controller")
 @WebMvcTest(UserController.class)
 @AutoConfigureMockMvc
 class UserControllerTest {
@@ -32,16 +38,30 @@ class UserControllerTest {
 	@Autowired
 	MockMvc mockMvc;
 
-	@Test
-	void getAllUsers() throws Exception {
-		when(userService.getAll(PageRequest.ofSize(10)))
-				.thenReturn(Collections.emptyList());
+	@Autowired
+	private ObjectMapper mapper;
 
-		mockMvc.perform(get("/users"))
+	@Test
+	@DisplayName("should return all users")
+	void should_return_all_users() throws Exception {
+		int from = 0;
+		int size = 5;
+		PageRequest pageRequest = new MyPageRequest(from, size, null);
+		List<UserDto> expectedResult = Collections.emptyList();
+		when(userService.getAll(pageRequest))
+				.thenReturn(expectedResult);
+
+
+		mockMvc.perform(get("/users")
+						.header("X-Sharer-User-Id", userId)
+						.param("from", String.valueOf(from))
+						.param("size", String.valueOf(size)))
 				.andExpect(status().isOk())
-				.andExpect(content().json("[]"));
+				.andExpect(content().json(mapper.writeValueAsString(expectedResult)));
 
 		verify(userService, times(1))
-				.getAll(PageRequest.ofSize(10));
+				.getAll(pageRequest);
 	}
+
+	public static final long userId = 1L;
 }

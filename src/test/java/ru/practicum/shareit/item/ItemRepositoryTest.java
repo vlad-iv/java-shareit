@@ -1,9 +1,11 @@
 package ru.practicum.shareit.item;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -15,11 +17,12 @@ import ru.practicum.shareit.user.User;
 import ru.practicum.shareit.user.UserRepository;
 
 /**
- * // TODO .
+ * Test ItemRepository.
  *
  * @author Vladimir Ivanov (ivanov.vladimir.l@gmail.com)
  */
 @DataJpaTest
+@DisplayName("Item repository")
 class ItemRepositoryTest {
 	@Autowired
 	UserRepository userRepository;
@@ -40,28 +43,26 @@ class ItemRepositoryTest {
 		item2 = itemRepository.save(new Item(2L, "item 2", "item 2 description", true, user2));
 	}
 
+	@DisplayName("should find item by owner")
 	@Test
-	void findByOwner() {
-		System.out.println("findByOwner()");
-		System.out.println(userRepository.findAll());
+	void should_find_item_by_owner() {
 		final Page<Item> byOwner = itemRepository.findByOwner_Id(user1.getId(), Pageable.unpaged());
-		assertNotNull(byOwner);
+
 		assertEquals(1, byOwner.getTotalElements());
-		// ...
-	}
+		// TODO
+		}
 
+	@DisplayName("should find all items")
 	@Test
-	void findByOwner1() {
+	void should_find_all_items() {
+		List<Item> items = itemRepository.findAll();
 
+		assertEquals(2, items.size());
 
-		System.out.println("findByOwner1()");
-		System.out.println(userRepository.findAll());
-		// ...
+		List<User> users = userRepository.findAll();
+
+		assertEquals(2, users.size());
+		// TODO
 	}
 
-//	@AfterEach
-//	void afterEach() {
-//		itemRepository.deleteAll();
-//		userRepository.deleteAll();
-//	}
 }
