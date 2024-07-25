@@ -2,6 +2,7 @@ package ru.practicum.shareit.booking.dto;
 
 import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
 import lombok.Getter;
@@ -17,4 +18,8 @@ public class BookingDto implements StartEnd {
 	@Future
 	private LocalDateTime end;
 
+	@AssertTrue
+	boolean isStartBeforeEnd() {
+		return start.isBefore(end);
+	}
 }

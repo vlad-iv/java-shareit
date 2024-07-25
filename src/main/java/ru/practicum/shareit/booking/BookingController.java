@@ -25,6 +25,7 @@ public class BookingController {
 	public List<BookingDto> getBookings(@RequestHeader("X-Sharer-User-Id") long userId,
 			@RequestParam(name = "state", defaultValue = "ALL") String stateParam) {
 		log.info("getBookings");
+		BookingState.valueOf(stateParam); // возвращает не правильно исключение если ошибка
 		BookingState state = BookingState.from(stateParam);
 		if (state == null) {
 			throw new IllegalArgumentException("Unknown state: " + stateParam);

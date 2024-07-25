@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * TODO Sprint add-controllers.
@@ -20,6 +21,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(of = {"id", "email"}) // допустимо
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

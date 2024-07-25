@@ -19,18 +19,13 @@ public class ItemInfoDto {
 	private String name;
 	private String description;
 	private Boolean available;
+
 	private BookingDto lastBooking;
 	private BookingDto nextBooking;
 
-	@AllArgsConstructor
-	@NoArgsConstructor
-	@Getter
-	public static class BookingDto {
-		Long id;
-		Long bookerId;
+	public record BookingDto(Long id, Long bookerId) {
 	}
-	public static class UserDto {
-		Long id;
-		String name;
+
+	public record UserDto(Long id, String name) {
 	}
 }
