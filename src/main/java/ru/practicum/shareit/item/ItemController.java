@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.practicum.shareit.Create;
 import ru.practicum.shareit.Update;
 import ru.practicum.shareit.item.dto.ItemDto;
@@ -18,6 +19,7 @@ import ru.practicum.shareit.item.dto.ItemUpdateDto;
 /**
  * TODO Sprint add-controllers.
  */
+@Slf4j
 @RestController
 @RequestMapping("/items")
 public class ItemController {
@@ -27,7 +29,11 @@ public class ItemController {
 	@PostMapping
 	ItemDto createItem(@RequestHeader(SHARER_USER_ID) long userId,
 			@Validated({Create.class, Update.class}) @RequestBody ItemDto itemDto) {
-		return itemService.createItem(itemDto, userId);
+		itemDto.setUserId(userId);
+		log.info("==> Creating item: {}", itemDto);
+		ItemDto item = itemService.createItem(itemDto);
+		log.info("<== Creating item: {}", item);
+		return item;
 	}
 
 	@PatchMapping("/{itemId}")

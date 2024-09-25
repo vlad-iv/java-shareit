@@ -22,6 +22,7 @@ import ru.practicum.shareit.Update;
 @AllArgsConstructor
 @ToString
 public class ItemDto {
+	long userId;
 	@NotNull(groups = {Update.class})
 	private Long id;
 	@NotBlank(groups = {Create.class})

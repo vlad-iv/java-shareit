@@ -9,7 +9,7 @@ import ru.practicum.shareit.item.dto.ItemDto;
  */
 public interface ItemService {
 
-	ItemDto createItem(ItemDto itemDto, long userId);
+	ItemDto createItem(ItemDto itemDto);
 
 //	List<ItemDto> findBy(ItemParams itemParams);
 }

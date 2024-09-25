@@ -21,8 +21,8 @@ public class ItemServiceImpl implements ItemService {
 	final ItemMapper itemMapper;
 
 	@Override
-	public ItemDto createItem(ItemDto itemDto, long userId) {
-		User owner = userRepository.findById(userId);
+	public ItemDto createItem(ItemDto itemDto) {
+		User owner = userRepository.findById(itemDto.getUserId());
 		Item item = itemMapper.toModel(itemDto, owner);
 		// логика
 		Item itemSaved = itemRepository.save(item);
