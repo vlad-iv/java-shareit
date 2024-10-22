@@ -1,7 +1,7 @@
 package ru.practicum.shareit.item.dto;
 
 
-import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,15 +21,15 @@ import ru.practicum.shareit.Update;
 @AllArgsConstructor
 @ToString
 public class ItemDto {
-	private long id;
+	long userId;
+	@NotNull(groups = {Update.class})
+	private Long id;
+	@NotBlank(groups = {Create.class})
 	private String name;
+	@NotBlank(groups = {Create.class, Update.class})
 	private String description;
-	private boolean available;
-
-
-	@Email(groups = {Update.class, Create.class})
-	@NotNull(groups = {Create.class})
-	private String email;
+	@NotNull(groups = {Update.class})
+	private Boolean available;
 
 	private UserDto user;
 

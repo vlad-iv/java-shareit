@@ -21,7 +21,6 @@ import ru.practicum.shareit.item.dto.ItemCreateDto;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.ItemInfoDto;
 import ru.practicum.shareit.item.dto.ItemUpdateDto;
-import ru.practicum.shareit.item.model.Item;
 
 /**
  * TODO Sprint add-controllers.
@@ -57,7 +56,13 @@ public class ItemController {
 
 	@GetMapping("/{id}")
 	ItemInfoDto getItem(@PathVariable String id) {
-		List<Item> items = itemService.findByBookings_User_Email(email);
+//		List<Item> items = itemService.findByBookings_User_Email(email);
 		return new ItemInfoDto();
+	}
+
+	@GetMapping("/items")
+	List<ItemInfoDto> getItem() {
+		List<ItemInfoDto> items = itemService.getItems();
+		return items;
 	}
 }

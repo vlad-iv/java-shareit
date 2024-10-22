@@ -2,19 +2,18 @@ package ru.practicum.shareit.booking;
 
 import java.time.Instant;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedAttributeNode;
-import javax.persistence.NamedEntityGraph;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedAttributeNode;
+import jakarta.persistence.NamedEntityGraph;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import ru.practicum.shareit.item.model.Item;
@@ -28,7 +27,7 @@ import ru.practicum.shareit.user.User;
 @Getter
 @Setter
 @NamedEntityGraph(name = "Booking.userAndItem", attributeNodes = {
-		@NamedAttributeNode("item"), @NamedAttributeNode("user") })
+		@NamedAttributeNode("item"), @NamedAttributeNode("booker") })
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +40,7 @@ public class Booking {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "booker_id")
-    private User user;
+    private User booker;
 
 	@NotNull
 	@Column(name = "start_date_time", nullable = false)

@@ -1,6 +1,10 @@
 package ru.practicum.shareit.item;
 
+import java.util.List;
+
+import ru.practicum.shareit.item.dto.ItemCreateDto;
 import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.item.dto.ItemInfoDto;
 
 /**
  * // TODO .
@@ -9,7 +13,9 @@ import ru.practicum.shareit.item.dto.ItemDto;
  */
 public interface ItemService {
 
-	ItemDto createItem(ItemDto itemDto);
+	ItemDto createItem(ItemCreateDto itemDto);
+
+	List<ItemInfoDto> getItems();
 
 //	List<ItemDto> findBy(ItemParams itemParams);
 }

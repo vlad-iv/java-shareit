@@ -2,25 +2,24 @@ package ru.practicum.shareit.booking.dto;
 
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.FutureOrPresent;
-
-import ru.practicum.shareit.item.dto.ItemDto;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
+import lombok.Getter;
 
 /**
  * TODO Sprint add-bookings.
  */
 @StartBeforeEnd
-public class BookingDto {
+@Getter
+public class BookingDto implements StartEnd {
 	@FutureOrPresent
 	private LocalDateTime start;
 	@Future
 	private LocalDateTime end;
-	private BookerDto booker;
-	private ItemDto item;
+
 	@AssertTrue
-	boolean isValidStartAfterEnd() {
-		return start.isAfter(end);
+	boolean isStartBeforeEnd() {
+		return start.isBefore(end);
 	}
 }

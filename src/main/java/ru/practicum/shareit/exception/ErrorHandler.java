@@ -1,4 +1,4 @@
-package ru.practicum.shareit;
+package ru.practicum.shareit.exception;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -25,7 +25,7 @@ public class ErrorHandler {
 		log.info("500 {}", e.getMessage(), e);
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
 		e.printStackTrace(new PrintStream(out));
-		return new ErrorResponse(out.toString(StandardCharsets.UTF_8));
+		return new ErrorResponse(e.getMessage(), out.toString(StandardCharsets.UTF_8));
 	}
 
 }
