@@ -3,6 +3,7 @@ package ru.practicum.shareit.item;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import ru.practicum.shareit.item.dto.ItemCreateDto;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.User;
@@ -21,7 +22,7 @@ public class ItemServiceImpl implements ItemService {
 	final ItemMapper itemMapper;
 
 	@Override
-	public ItemDto createItem(ItemDto itemDto) {
+	public ItemDto createItem(ItemCreateDto itemDto) {
 		User owner = userRepository.findById(itemDto.getUserId());
 		Item item = itemMapper.toModel(itemDto, owner);
 		// логика

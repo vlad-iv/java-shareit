@@ -18,6 +18,7 @@ import ru.practicum.shareit.Create;
 @AllArgsConstructor
 @ToString
 public class ItemCreateDto {
+	long userId;
 	private Long id;
 	@NotBlank(groups = {Create.class})
 	private String name;

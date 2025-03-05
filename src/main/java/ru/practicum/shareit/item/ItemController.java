@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.constraints.Min;
 import lombok.extern.slf4j.Slf4j;
 import ru.practicum.shareit.Create;
 import ru.practicum.shareit.Update;
+import ru.practicum.shareit.item.dto.ItemCreateDto;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.ItemUpdateDto;
 
@@ -22,13 +24,14 @@ import ru.practicum.shareit.item.dto.ItemUpdateDto;
 @Slf4j
 @RestController
 @RequestMapping("/items")
+@Validated
 public class ItemController {
 	public static final String SHARER_USER_ID = "X-Sharer-User-Id";
 	@Autowired
 	ItemServiceImpl itemService;
 	@PostMapping
 	ItemDto createItem(@RequestHeader(SHARER_USER_ID) long userId,
-			@Validated({Create.class, Update.class}) @RequestBody ItemDto itemDto) {
+			@Validated({Create.class, Update.class}) @RequestBody ItemCreateDto itemDto) {
 		itemDto.setUserId(userId);
 		log.info("==> Creating item: {}", itemDto);
 		ItemDto item = itemService.createItem(itemDto);
@@ -37,7 +40,7 @@ public class ItemController {
 	}
 
 	@PatchMapping("/{itemId}")
-	ItemDto updateItem(@PathVariable Long itemId,
+	ItemDto updateItem(@PathVariable @Min(0) Long itemId,
 			 @RequestBody ItemUpdateDto itemDto) {
 //		Item item = itemService.getById(itemId);
 //		if (itemDto.isNameNotNull(itemDto)) {
