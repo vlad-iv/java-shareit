@@ -21,7 +21,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     Optional<Item> findByIdAndOwner_Id(Long id, Long ownerId);
 
-	@Query("select item from Item item" +
+	@Query("select item from Item item " +
 			" where item.available = true " +
 			" and (item.name like :text)" +
 			" and item.description like :text")

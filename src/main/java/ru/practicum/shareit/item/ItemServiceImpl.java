@@ -60,8 +60,11 @@ public class ItemServiceImpl implements ItemService {
 	@Transactional
 	public ItemDto update(ItemDto itemDto, long userId) {
 
-		Item item = itemRepository.findById(itemDto.getId()).orElseThrow(() -> new NotFoundException("Item not found"));
-		User owner = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
+		Item item = itemRepository.findById(itemDto.getId())
+				.orElseThrow(() -> new NotFoundException("Item not found"));
+		User owner = userRepository.findById(userId)
+				.orElseThrow(() -> new NotFoundException("User not found"));
+
 		// логика
 		if (itemDto.getName() != null) {
 			item.setName(itemDto.getName());
@@ -71,9 +74,11 @@ public class ItemServiceImpl implements ItemService {
 		itemRepository.save(item); // вызов save для читаемости кода!
 		return itemMapper.toDto(item);
 	}
-
+ // У пользователя 100 item
+	// Сколько запросов в БД, что бы получить ответ вещи + комментарии + бронирования ?
 	List<ItemInfoDto> getAll() {
 //		List<Item> items = itemRepository.findAll(); // получить вещи
+
 //		List<Long> itemIds = items.stream()....;
 //		List<Booking> bookings = через itemIds
 //		Map<Long, List<Booking>> itemIdByBookings;
